@@ -60,6 +60,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
+      <Navbar cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
       <Component
         cart={cart}
         addToCart={addToCart}
@@ -68,6 +69,7 @@ function MyApp({ Component, pageProps }) {
         subTotal={subTotal}
         {...pageProps}
       />
+      <Footer />
     </>
   );
 }

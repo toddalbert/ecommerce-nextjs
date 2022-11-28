@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import Image from 'next/image';
 import Product from '../models/Product';
 
-const Tshirts = ({ products }) => {
+const Watches = ({ products }) => {
   return (
     <div>
       <section className="text-gray-600 body-font">
@@ -47,9 +47,9 @@ export async function getServerSideProps(context) {
     await mongoose.connect(process.env.MONGO_URI);
   }
   // use the Product model to find items with category 't-shirts'
-  const products = await Product.where({ category: 't-shirts' })
+  const products = await Product.where({ category: 'watches' })
   return {props: { products: JSON.parse(JSON.stringify(products)) }}
 
 }
 
-export default Tshirts;
+export default Watches;

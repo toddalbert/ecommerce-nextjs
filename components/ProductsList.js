@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 const ProductCard = ({ item }) => {
@@ -27,16 +26,7 @@ const ProductCard = ({ item }) => {
   );
 };
 
-export default function ProductList() {
-  const [allProducts, setAllProducts] = useState([]);
-
-  useEffect(() => {
-    fetch('/api/getproducts')
-      .then((res) => res.json())
-      .then((allProducts) => setAllProducts(allProducts.products))
-      .catch((err) => console.error(err));
-  }, []);
-
+export default function ProductList({ products }) {
   return (
     <section className="body-font text-gray-600">
       <div className="container mx-auto px-5 py-10">
@@ -53,11 +43,20 @@ export default function ProductList() {
           </p>
         </div>
         <div className="-m-4 flex flex-wrap">
-          {allProducts?.map((item) => {
+          {products?.map((item) => {
             return <ProductCard key={item.id} item={item} />;
           })}
         </div>
       </div>
     </section>
   );
+}
+
+export async function getServerSideProps() {
+  fetch('/api/getproducts')
+  .then((res) => res.json())
+  .then((allProducts) => {
+    return {props: {products: allProducts.products}}
+  })
+  .catch((err) => console.error(err));
 }
